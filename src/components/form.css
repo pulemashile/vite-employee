@@ -1,0 +1,61 @@
+/*  *//* form.css */
+
+.form-container {
+    display: flex;
+    gap: 1rem;
+    margin: 0 auto;
+  }
+  
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  input[type="text"],
+  input[type="number"],
+  input[type="file"] {
+    padding: 0.5rem;
+    font-size: 1rem;
+  }
+  
+  button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+  }
+  
+  .card {
+    margin-top: 2rem;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .card img {
+    height: 300px;
+
+  }
+  
+  .card h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+  }
+  
+  .card p {
+    margin: 0.5rem 0;
+  }
+  
+  .image {
+    margin-top: 1rem;
+    max-width: 100%;
+    border-radius: 8px;
+  }
+  .btn-submit {
+    color: black;
+    border-radius: "12px";
+  }
