@@ -144,7 +144,7 @@ function Form() {
       <label>
         Phone number:
         <input
-          type="number"
+          type="text"
           value={phoneNumber}
           onChange={(e) => setPhoneNumber(e.target.value)}
         />
