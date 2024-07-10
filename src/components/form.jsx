@@ -84,7 +84,7 @@
 // export default Form;
 import React, { useState } from "react";
 import "./form.css";
-
+import axios from "axios";
 function Form() {
   const [name, setName] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
@@ -94,7 +94,7 @@ function Form() {
   const [ID, setID] = useState("");
   const [emailError, setEmailError] = useState("");
   const [submittedData, setSubmittedData] = useState(null);
-
+  const [employees, setEmployees] = useState([])
   const handleSubmits = () => {
     const employee = {
       name,
@@ -118,8 +118,20 @@ function Form() {
       .catch((error) => console.error("Error:", error));
   };
 
+  const get_users = () =>{
+    fetch('http://localhost:8080/registrations')
+    .then(res => res.json())
+    .then(data => setEmployees(data))
+    .catch(err => console.log(err)) 
+  }
+  get_users()
   return (
-    <div className="form-container">
+    <div style={{
+        display : 'flex',
+        justifyContent : 'center',
+        gap : '30px'
+    }}>
+         <div className="form-container">
       <div>
         
       <label>
@@ -174,29 +186,41 @@ function Form() {
       <button className = 'btn-submit' onClick={handleSubmits}>Submit </button>
       </div>
       
-      <div>
-        {submittedData && (
-        <div className="card">
-          <h2>{submittedData.name}</h2>
-          <p>
-            <strong>Email:</strong> {submittedData.emailAddress}
-          </p>
-          <p>
-            <strong>Phone:</strong> {submittedData.phoneNumber}
-          </p>
-          <p>
-            <strong>Position:</strong> {submittedData.position}
-          </p>
-          <p>
-            <strong>ID:</strong> {submittedData.ID}
-          </p>
-          {submittedData.image && (
-            <img src={submittedData.image} alt="Employee" className="image" />
-          )}
-        </div>
-      )}
+     
+    </div>
+     <div style={{
+        display : 'flex', 
+
+      }}>
+        { employees.length === 0 ? (<div> Loading... </div>) : employees.map(employee => (
+            <div key={employee.id} style={{
+                border : '2px solid black',
+                borderRadius:"6px",
+                width : '15vw',
+                textAlign : 'center'
+            }}>
+                <h1> {employee.name} </h1>
+                <h1> {employee.phoneNumber} </h1>
+                <h1> {employee.email} </h1>
+                <h1> {employee.ID} </h1>
+                <h1> {employee.position} </h1>
+                <img src={employee.image} alt="" style={{
+                    height : '150px',
+                    objectFit : 'cover'
+                }} />
+                <button onClick={ async () => {
+                    try {
+                        await axios.delete('http://localhost:8080/registrations/' + employee.id);
+                        console.log('deleted')
+                    } catch (error) {
+                        
+                    }
+                }}> Delete</button>
+            </div>
+        )) }
       </div>
     </div>
+   
   );
 }
 

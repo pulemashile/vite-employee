@@ -1,8 +1,9 @@
 /*  *//* form.css */
 
 .form-container {
-    display: flex;
-    gap: 1rem;
+    display: block;
+    width: 15vw;
+    padding: 5px;
 
     justify-content: center;
     align-items: center;
