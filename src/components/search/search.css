@@ -1,0 +1,41 @@
+.content-1 {
+    min-width: 350px;
+    display: flex;
+    flex-direction: column;
+    height: 290px;
+    overflow-y: hidden;
+
+    /* padding: 30px;  */
+    
+}
+.content-1 input{
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.content-1 ul {
+    overflow-y: scroll;
+    scrollbar-width: none;
+    list-style: none;
+    padding: 0%;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+
+}
+
+.content-1 ul li {
+    display: flex;
+    gap: 10px;
+}
+.content-1 ul li p {
+    display: flex;
+    margin: 0%;
+    padding: 0%;
+}
+
+.content-1 ul li img {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+}
