@@ -1,12 +1,67 @@
 {
   "registrations": [
     {
-      "name": "mapula mashil",
+      "id": "8f8d",
+      "name": "mapula mashile",
+      "emailAddress": "mapule.6862@gmail.com",
       "phoneNumber": "0736907070",
       "position": "12",
       "ID": "12",
-      "image": "",
-      "id": "0796"
+      "image": "blob:http://localhost:5173/c3893afd-b8eb-4748-bc38-b5f90dd3d015"
+    },
+    {
+      "id": "7b85",
+      "name": "kamo",
+      "emailAddress": "lerato@gmail.com",
+      "phoneNumber": "0736907070",
+      "position": "1528",
+      "ID": "15",
+      "image": "blob:http://localhost:5173/458ee06d-1552-496c-89af-bbb3ecec4f41"
+    },
+    {
+      "id": "997f",
+      "name": "",
+      "emailAddress": "",
+      "phoneNumber": "",
+      "position": "",
+      "ID": "",
+      "image": ""
+    },
+    {
+      "id": "85cc",
+      "name": "",
+      "emailAddress": "",
+      "phoneNumber": "",
+      "position": "",
+      "ID": "",
+      "image": ""
+    },
+    {
+      "id": "0a7f",
+      "name": "mapula mashilet",
+      "emailAddress": "mapule.6862@gmail.com",
+      "phoneNumber": "0736907070",
+      "position": "m64",
+      "ID": "e",
+      "image": "blob:http://localhost:5173/e3b6c463-a4bf-41fe-87a3-46a03cc4e1c1"
+    },
+    {
+      "id": "1140",
+      "name": "mapula mashilet",
+      "emailAddress": "mapule.6862@gmail.com",
+      "phoneNumber": "0736907070",
+      "position": "m64",
+      "ID": "e",
+      "image": "blob:http://localhost:5173/e3b6c463-a4bf-41fe-87a3-46a03cc4e1c1"
+    },
+    {
+      "id": "e647",
+      "name": "yem ,",
+      "emailAddress": "y6ed cm",
+      "phoneNumber": " xsetmw",
+      "position": " me",
+      "ID": " m",
+      "image": ""
     }
   ]
 }

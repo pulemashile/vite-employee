@@ -12,8 +12,8 @@ function Form() {
     const [submittedData, setSubmittedData] = useState(null);
     const [employees, setEmployees] = useState([]);
     const [editingEmployee, setEditingEmployee] = useState(null);
-const [editModalOpen, setEditModalOpen] = useState(false)
-    
+    const [editModalOpen, setEditModalOpen] = useState(false)
+
 
     const handleSubmits = async () => {
         const employee = {
@@ -47,34 +47,33 @@ const [editModalOpen, setEditModalOpen] = useState(false)
 
     const editEmployee = async (employeeId, updatedEmployee) => {
         try {
-            const response = await axios.put(`http://localhost:8080/registrations/${employeeId}`, updatedEmployee);
-            const data = response.data;
-            console.log(data);
-
-            const updatedEmployees = employees.map((employee) => {
-                if (employee.id === employeeId) {
-                    return updatedEmployee;
-                }
-                return employee;
-            });
-
-            setEmployees(updatedEmployees);
+          const response = await axios.put(`http://localhost:8080/registrations/${employeeId}`, updatedEmployee);
+          const data = response.data;
+          console.log(data);
+    
+          const updatedEmployees = employees.map((employee) => {
+            if (employee.id === employeeId) {
+              return updatedEmployee;
+            }
+            return employee;
+          });
+          setEmployees(updatedEmployees);
+          setEditingEmployee(updatedEmployee); // Set the editing employee state
         } catch (error) {
-            console.error("Error editing employee:", error);
+          console.error("Error editing employee:", error);
         }
-    };
-
+      };
     useEffect(() => {
         get_users();
     }, []);
 
     return (
-        <div style={{ display: "flex", justifyContent: "center", gap: "30px" }}>
-            <div className="form-container">
-                <div>
-                    <label>
+        <div  className="grid grid-cols-12 gap-4 justify-center items-center">
+            <div className="border border-gray-200 p-4 col-span-6 rounded-md bg-white shadow-lg justify-center ">
+                <div className="justify-center">
+                    <label className="font-sans font-medium">
                         Enter your name:
-                        <input
+                        <input className="bg-gray border  border-gray shadow rounded-sm"
                             type="text"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
@@ -83,7 +82,8 @@ const [editModalOpen, setEditModalOpen] = useState(false)
 
                     <label>
                         Email address:
-                        <input
+                        Enter your name:
+                        <input className="bg-gray border  border-gray shadow rounded-sm"
                             type="text"
                             value={emailAddress}
                             onChange={(e) => setEmailAddress(e.target.value)}
@@ -92,7 +92,8 @@ const [editModalOpen, setEditModalOpen] = useState(false)
 
                     <label>
                         Phone number:
-                        <input
+                        
+                        <input className="bg-gray border  border-gray shadow rounded-sm "
                             type="text"
                             value={phoneNumber}
                             onChange={(e) => setPhoneNumber(e.target.value)}
@@ -109,7 +110,8 @@ const [editModalOpen, setEditModalOpen] = useState(false)
 
                     <label>
                         Employee position:
-                        <input
+                        
+                        <input className="bg-gray border  border-gray shadow rounded-sm "
                             type="text"
                             value={position}
                             onChange={(e) => setPosition(e.target.value)}
@@ -118,76 +120,47 @@ const [editModalOpen, setEditModalOpen] = useState(false)
 
                     <label>
                         ID:
-                        <input type="text" value={ID} onChange={(e) => setID(e.target.value)} />
+                        
+                        <input className="bg-gray border  border-gray shadow rounded-sm " type="text" value={ID} onChange={(e) => setID(e.target.value)} />
                     </label>
 
-                    <button className="btn-submit" onClick={handleSubmits}>
+                    <button className="bg-red-400 rounded-sm h-[40px] w-[70px] items-center mt-5" onClick={handleSubmits}>
                         Submit
                     </button>
                 </div>
             </div>
 
-            <div style={{ display: "flex" }}>
+            <div className="col-span-6 gap-4 mt-5 grid grid-cols-12">
                 {employees.length === 0 ? (
                     <div>Loading...</div>
                 ) : (
                     employees.map((employee) => (
-                        <div key={employee.id} style={{ border: "2px solid black", borderRadius: "6px", width: "15vw", textAlign: "center" }}>
-                            <h1>{employee.name}</h1>
-                            <h1>{employee.phoneNumber}</h1>
-                            <h1>{employee.email}</h1>
-                            <h1>{employee.ID}</h1>
-                            <h1>{employee.position}</h1>
-                            <img src={employee.image} alt="" style={{ height: "150px", objectFit: "cover" }} />
-                            <button
-  onClick={() => {
-    setEditingEmployee(employee);
-    setEditModalOpen(true);
-  }}
->
-  Edit
-</button> {editModalOpen && (
-  <div className="modal">
-    <div className="modal-content">
-      <h2>Edit Employee</h2>
-      <form>
-        <label>
-          Name:
-          <input type="text" value={editingEmployee.name} onChange={(e) => setEditingEmployee({ ...editingEmployee, name: e.target.value })} />
-        </label>
-        <label>
-          Email Address:
-          <input type="text" value={editingEmployee.emailAddress} onChange={(e) => setEditingEmployee({ ...editingEmployee, emailAddress: e.target.value })} />
-        </label>
-        <label>
-          Phone Number:
-          <input type="text" value={editingEmployee.phoneNumber} onChange={(e) => setEditingEmployee({ ...editingEmployee, phoneNumber: e.target.value })} />
-        </label>
-        <label>
-          Position:
-          <input type="text" value={editingEmployee.position} onChange={(e) => setEditingEmployee({ ...editingEmployee, position: e.target.value })} />
-        </label>
-        <label>
-          ID:
-          <input type="text" value={editingEmployee.ID} onChange={(e) => setEditingEmployee({ ...editingEmployee, ID: e.target.value })} />
-        </label>
-        <label>
-          Image:
-          <input type="text" value={editingEmployee.image} onChange={(e) => setEditingEmployee({ ...editingEmployee, image: e.target.value })} />
-        </label>
-        <button onClick={() => editEmployee(editingEmployee.id, editingEmployee)}>Save Changes</button>
-      </form>
-    </div>
-  </div>
-)}
+                        <div key={employee.id} className="border-spacing-4 border-gray-200 shadow-xl   h-[200px] col-span-4">
+                            <h1  className="text-2xl font-bold">{employee.name}</h1>
 
-
-                            <button
+                            <h1 className="text-xl font-bold">{employee.phoneNumber}</h1>
+                            <h1 className="text-xl font-bold">{employee.email}</h1>
+                            <h1 className="text-xl font-mono">{employee.ID}</h1>
+                            <h1 className=" text-xl font-mono">{employee.position}</h1>
+                            <img src={employee.image} alt="" className="h-24 w-24 object-cover rounded-full" />
+                            <button className=" bg-slate-400 hover:bg-slate-200 text-"
+                                onClick={() => {
+                                    setEditingEmployee(employee);
+                                    setEditModalOpen(true);
+                                }}
+                            >
+                              Edit
+              </button>
+              <button 
+  className="bg-slate-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+  
+  
                                 onClick={async () => {
-                                    console.log(employee.id);
                                     try {
                                         await axios.delete(`http://localhost:8080/registrations/${employee.id}`);
                                         console.log("deleted");
+                                        // Reload the page here to see the changes
+                                        window.location.reload();
                                     } catch (error) {
                                         console.error("Error deleting employee:", error);
                                     }
@@ -195,29 +168,94 @@ const [editModalOpen, setEditModalOpen] = useState(false)
                             >
                                 Delete
                             </button>
-                        </div>
-                    ))
-                )}
-            </div>
 
-            {submittedData !== null && (
-                <table style={{ border: "2px solid black", borderRadius: "6px", width: "15vw" }}>
-                    <tr key="name">
-                        <th>Name</th>
-                        <td>{submittedData.name}</td>
-                    </tr>
-                    <tr key="email">
-                        <th>Email</th>
-                        <td>{submittedData.emailAddress}</td>
-          </tr>
-          <tr key="image">
-            <th>Image</th>
-            <td>
-              <img src={submittedData.image} alt="" style={{ height: "150px", objectFit: "cover" }} />
-            </td>
-          </tr>
-        </table>
-      )}
+              {editModalOpen && editingEmployee.id === employee.id && (
+                <div className="modal">
+                  <div className="modal-content">
+                    <h2>Edit Employee</h2>
+                    <form>
+                      <label>
+                        Name:
+                        <input
+                          type="text"
+                          value={editingEmployee.name}
+                          onChange={(e) => setEditingEmployee({ ...editingEmployee, name: e.target.value })}
+                        />
+                      </label>
+                      <label>
+                        Email Address:
+                        <input
+                          type="text"
+                          value={editingEmployee.emailAddress}
+                          onChange={(e) => setEditingEmployee({ ...editingEmployee, emailAddress: e.target.value })}
+                        />
+                      </label>
+                      <label>
+                        Phone Number:
+                        <input
+                          type="text"
+                          value={editingEmployee.phoneNumber}
+                          onChange={(e) => setEditingEmployee({ ...editingEmployee, phoneNumber: e.target.value })}
+                        />
+                      </label>
+                      <label>
+                        Position:
+                        <input
+                          type="text"
+                          value={editingEmployee.position}
+                          onChange={(e) => setEditingEmployee({ ...editingEmployee, position: e.target.value })}
+                        />
+                      </label>
+                      <label>
+                        ID:
+                        <input
+                          type="text"
+                          value={editingEmployee.ID}
+                          onChange={(e) => setEditingEmployee({ ...editingEmployee, ID: e.target.value })}
+                        />
+                      </label>
+                      <label>
+                        Image:
+                        <input
+                          type="text"
+                          value={editingEmployee.image}
+                          onChange={(e) => setEditingEmployee({ ...editingEmployee, image: e.target.value })}
+                        />
+                      </label>
+                      <button onClick={() => editEmployee(editingEmployee.id, editingEmployee)}>Save Changes</button>
+                    </form>
+                  </div>
+                </div>
+              )}
+            </div>
+          ))
+        )}
+      </div>
+
+      <div>
+        {submittedData !== null && (
+          <table className="border border-gray-300 rounded-lg w-1/4 flex flex-row shadow-md">
+            <tr key="name" className="bg-gray-100">
+              <th className="px-4 py-2 text-left">Name</th>
+              <td className="px-4 py-2">{submittedData.name}</td>
+            </tr>
+            <tr key="email">
+              <th className="px-4 py-2 text-left">Email</th>
+              <td className="px-4 py-2">{submittedData.emailAddress}</td>
+            </tr>
+            <tr key="image">
+              <th className="px-4 py-2 text-left">Image</th>
+              <td className="px-4 py-2">
+                <img
+                  src={submittedData.image}
+                  alt=""
+                  style={{ height: "150px", objectFit: "cover", borderRadius: "10px" }}
+                />
+              </td>
+            </tr>
+          </table>
+        )}
+      </div>
     </div>
   );
 }

@@ -6,15 +6,20 @@ import Search from './components/search/Search'
 
 
 function App() {
-  
+
 
   return (
-    <>
-    <Search/>
-     <Form/>
-     
-    
-    </>
+    <div>
+      
+  <div>
+      <Search />
+   </div>
+
+    <div className=''>
+        <Form />
+     </div>
+    </div>
+
   )
 }
 
