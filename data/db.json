@@ -1,67 +1,22 @@
 {
   "registrations": [
     {
-      "id": "8f8d",
+      "id": "13ec",
       "name": "mapula mashile",
       "emailAddress": "mapule.6862@gmail.com",
       "phoneNumber": "0736907070",
-      "position": "12",
+      "position": "driver",
+      "ID": "12345",
+      "image": "blob:http://localhost:5173/4a8f6100-cc78-49f4-872b-e2148ee9294a"
+    },
+    {
+      "id": "ad1b",
+      "name": "mapula",
+      "emailAddress": "mapule.6862@gmail.com",
+      "phoneNumber": "073690907202",
+      "position": "lijjik",
       "ID": "12",
-      "image": "blob:http://localhost:5173/c3893afd-b8eb-4748-bc38-b5f90dd3d015"
-    },
-    {
-      "id": "7b85",
-      "name": "kamo",
-      "emailAddress": "lerato@gmail.com",
-      "phoneNumber": "0736907070",
-      "position": "1528",
-      "ID": "15",
-      "image": "blob:http://localhost:5173/458ee06d-1552-496c-89af-bbb3ecec4f41"
-    },
-    {
-      "id": "997f",
-      "name": "",
-      "emailAddress": "",
-      "phoneNumber": "",
-      "position": "",
-      "ID": "",
-      "image": ""
-    },
-    {
-      "id": "85cc",
-      "name": "",
-      "emailAddress": "",
-      "phoneNumber": "",
-      "position": "",
-      "ID": "",
-      "image": ""
-    },
-    {
-      "id": "0a7f",
-      "name": "mapula mashilet",
-      "emailAddress": "mapule.6862@gmail.com",
-      "phoneNumber": "0736907070",
-      "position": "m64",
-      "ID": "e",
-      "image": "blob:http://localhost:5173/e3b6c463-a4bf-41fe-87a3-46a03cc4e1c1"
-    },
-    {
-      "id": "1140",
-      "name": "mapula mashilet",
-      "emailAddress": "mapule.6862@gmail.com",
-      "phoneNumber": "0736907070",
-      "position": "m64",
-      "ID": "e",
-      "image": "blob:http://localhost:5173/e3b6c463-a4bf-41fe-87a3-46a03cc4e1c1"
-    },
-    {
-      "id": "e647",
-      "name": "yem ,",
-      "emailAddress": "y6ed cm",
-      "phoneNumber": " xsetmw",
-      "position": " me",
-      "ID": " m",
-      "image": ""
+      "image": "blob:http://localhost:5173/f73055fa-4162-4acc-9914-c3f31f6e3518"
     }
   ]
 }

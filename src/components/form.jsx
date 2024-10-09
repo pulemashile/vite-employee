@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./form.css";
 import axios from "axios";
+import  { RiSave2Fill, RiSearchEyeLine,RiDeleteBin4Fill,RiEdit2Line } from '@remixicon/react'
 
 function Form() {
     const [name, setName] = useState("");
@@ -124,7 +125,7 @@ function Form() {
                         <input className="bg-gray border  border-gray shadow rounded-sm " type="text" value={ID} onChange={(e) => setID(e.target.value)} />
                     </label>
 
-                    <button className="bg-red-400 rounded-sm h-[40px] w-[70px] items-center mt-5" onClick={handleSubmits}>
+                    <button className="bg-[#B8001F] rounded-lg h-[40px] w-[350px] items-center ml-[250px] mt-5" onClick={handleSubmits}>
                         Submit
                     </button>
                 </div>
@@ -135,40 +136,41 @@ function Form() {
                     <div>Loading...</div>
                 ) : (
                     employees.map((employee) => (
-                        <div key={employee.id} className="border-spacing-4 border-gray-200 shadow-xl   h-[200px] col-span-4">
-                            <h1  className="text-2xl font-bold">{employee.name}</h1>
+                        <div key={employee.id} className="border-spacing-4 border-gray-200 shadow-xl  h-[300px] col-span-4 items-center">
+                             <img src={employee.image} alt="" className="h-24 w-24 object-cover  " />
+                            <h1  className="text-xl font-bold text-center">{employee.name}</h1>
 
-                            <h1 className="text-xl font-bold">{employee.phoneNumber}</h1>
-                            <h1 className="text-xl font-bold">{employee.email}</h1>
-                            <h1 className="text-xl font-mono">{employee.ID}</h1>
-                            <h1 className=" text-xl font-mono">{employee.position}</h1>
-                            <img src={employee.image} alt="" className="h-24 w-24 object-cover rounded-full" />
-                            <button className=" bg-slate-400 hover:bg-slate-200 text-"
+                        
+                            <h1 className="text-xl font-bold text-center">{employee.phoneNumber}</h1>
+                            <h1 className="text-xl font-bold text-center">{employee.email}</h1>
+                            <h1 className="text-xl font-bold text-center">{employee.ID}</h1>
+                            <h1 className=" text-xl font-bold text-center">{employee.position}</h1>
+                            
+                            <button className=" bg-red-600 shadow-sm hover:bg-red-100 px-4 py-2 mr-2 rounded-sm text-whi"
                                 onClick={() => {
                                     setEditingEmployee(employee);
                                     setEditModalOpen(true);
                                 }}
                             >
-                              Edit
-              </button>
-              <button 
-  className="bg-slate-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-  
-  
-                                onClick={async () => {
-                                    try {
-                                        await axios.delete(`http://localhost:8080/registrations/${employee.id}`);
-                                        console.log("deleted");
-                                        // Reload the page here to see the changes
-                                        window.location.reload();
-                                    } catch (error) {
-                                        console.error("Error deleting employee:", error);
-                                    }
-                                }}
-                            >
-                                Delete
-                            </button>
-
+                              <RiEdit2Line/>
+                          </button>
+                          <button 
+                        className="bg-red-600 shadow-sm hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                          
+                                                    onClick={async () => {
+                                                        try {
+                                                            await axios.delete(`http://localhost:8080/registrations/${employee.id}`);
+                                                            console.log("deleted");
+                                                            // Reload the page here to see the changes
+                                                            window.location.reload();
+                                                        } catch (error) {
+                                                            console.error("Error deleting employee:", error);
+                                                        }
+                                                    }}
+                                                >
+                                                    <RiDeleteBin4Fill/>
+                                                </button>
+                
               {editModalOpen && editingEmployee.id === employee.id && (
                 <div className="modal">
                   <div className="modal-content">
