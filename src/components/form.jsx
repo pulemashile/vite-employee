@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./form.css";
 import axios from "axios";
-import  { RiSave2Fill, RiSearchEyeLine,RiDeleteBin4Fill,RiEdit2Line } from '@remixicon/react'
+import  { RiSave2Fill, RiSearchEyeLine,RiDeleteBin2Line,RiEdit2Line } from '@remixicon/react'
 
 function Form() {
     const [name, setName] = useState("");
@@ -69,8 +69,8 @@ function Form() {
     }, []);
 
     return (
-        <div  className="grid grid-cols-12 gap-4 justify-center items-center">
-            <div className="border border-gray-200 p-4 col-span-6 rounded-md bg-white shadow-lg justify-center ">
+        <div  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-center items-center">
+            <div className="border border-gray-200 p-4 col-span-6 rounded-md bg-white shadow-lg md:w-1/2 lg:w-1/3 ">
                 <div className="justify-center">
                     <label className="font-sans font-medium">
                         Enter your name:
@@ -125,28 +125,29 @@ function Form() {
                         <input className="bg-gray border  border-gray shadow rounded-sm " type="text" value={ID} onChange={(e) => setID(e.target.value)} />
                     </label>
 
-                    <button className="bg-[#B8001F] rounded-lg h-[40px] w-[350px] items-center ml-[250px] mt-5" onClick={handleSubmits}>
+                    <button className="bg-[#B8001F] rounded-lg h-[40px] w-[350px] items-center  mt-5" onClick={handleSubmits}>
                         Submit
                     </button>
                 </div>
             </div>
 
-            <div className="col-span-6 gap-4 mt-5 grid grid-cols-12">
+            <div className="col-span-1 md:col-span-2 lg:col-span-3 gap-4 mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 {employees.length === 0 ? (
                     <div>Loading...</div>
                 ) : (
                     employees.map((employee) => (
-                        <div key={employee.id} className="border-spacing-4 border-gray-200 shadow-xl  h-[300px] col-span-4 items-center">
-                             <img src={employee.image} alt="" className="h-24 w-24 object-cover  " />
+                        <div key={employee.id} className="border-spacing-4 border-gray-200 shadow-xl h-[300px] md:h-[250px] lg:h-[250px] col-span-1 md:col-span-1 lg:col-span-1 style={{ height: '100%' }}  md:ml-10  lg:ml-8">
+                          <div className="bg-[#B8001F]"></div>
+                             <img src={employee.image} alt="image" className="h-24 w-24 object-cover rounded-full bg-[#B8001F] mx-auto my-auto " />
                             <h1  className="text-xl font-bold text-center">{employee.name}</h1>
 
                         
-                            <h1 className="text-xl font-bold text-center">{employee.phoneNumber}</h1>
-                            <h1 className="text-xl font-bold text-center">{employee.email}</h1>
-                            <h1 className="text-xl font-bold text-center">{employee.ID}</h1>
-                            <h1 className=" text-xl font-bold text-center">{employee.position}</h1>
+                            <h1 className="text-xl font-bold text-center text-[#507687] font-custom-font ">{employee.phoneNumber}</h1>
+                            <h1 className="text-xl font-bold text-center text-[#507687]  font-custom-font">{employee.email}</h1>
+                            <h1 className="text-xl font-bold text-center  text-[#507687] font-custom-font">{employee.ID}</h1>
+                            <h1 className=" text-xl font-bold text-center text-[#507687] font-custom-font">{employee.position}</h1>
                             
-                            <button className=" bg-red-600 shadow-sm hover:bg-red-100 px-4 py-2 mr-2 rounded-sm text-whi"
+                            <button className="  shadow-sm hover:bg-red-100 px-4 py-2 mr-2 rounded-sm text-whi"
                                 onClick={() => {
                                     setEditingEmployee(employee);
                                     setEditModalOpen(true);
@@ -155,7 +156,7 @@ function Form() {
                               <RiEdit2Line/>
                           </button>
                           <button 
-                        className="bg-red-600 shadow-sm hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        className=" shadow-sm  font-bold py-2 px-4 rounded "
                           
                                                     onClick={async () => {
                                                         try {
@@ -168,7 +169,7 @@ function Form() {
                                                         }
                                                     }}
                                                 >
-                                                    <RiDeleteBin4Fill/>
+                                                    <RiDeleteBin2Line/>
                                                 </button>
                 
               {editModalOpen && editingEmployee.id === employee.id && (
@@ -236,7 +237,7 @@ function Form() {
 
       <div>
         {submittedData !== null && (
-          <table className="border border-gray-300 rounded-lg w-1/4 flex flex-row shadow-md">
+          <table className="border border-gray-300 rounded-lg w-full md:w-1/2 lg:w-1/3 flex flex-row shadow-md">
             <tr key="name" className="bg-gray-100">
               <th className="px-4 py-2 text-left">Name</th>
               <td className="px-4 py-2">{submittedData.name}</td>

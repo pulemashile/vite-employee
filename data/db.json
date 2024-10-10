@@ -17,6 +17,15 @@
       "position": "lijjik",
       "ID": "12",
       "image": "blob:http://localhost:5173/f73055fa-4162-4acc-9914-c3f31f6e3518"
+    },
+    {
+      "id": "edf4",
+      "name": "mapula",
+      "emailAddress": "mapule.6862@gmail.com",
+      "phoneNumber": "07336909070",
+      "position": "ceo",
+      "ID": "123456",
+      "image": "blob:http://localhost:5173/23eefb32-5b26-48f4-b498-df811e22d0eb"
     }
   ]
 }
