@@ -13,7 +13,7 @@ const EmployeeCard = ({ employee }) => {
       <button onClick={() => editEmployee(employee.id, employee)}>Edit</button>
       <button onClick={async () => {
         try {
-          await axios.delete(`http://localhost:8080/registrations/${employee.id}`);
+          await axios.delete(`http://localhost:8081/registrations/${employee.id}`);
           console.log("deleted");
         } catch (error) {
           console.error("Error deleting employee:", error);
