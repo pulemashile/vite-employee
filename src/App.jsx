@@ -13,6 +13,7 @@ function App() {
     const [editingEmployee, setEditingEmployee] = useState(null);
     const [loading, setLoading] = useState(false);
     const [showForm, setShowForm] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
     useEffect(() => {
         getEmployees();
@@ -30,28 +31,44 @@ function App() {
         }
     };
 
-    const handleAddEmployee = async () => {
-        const employee = { name, emailAddress, phoneNumber, position, ID, image };
-        setLoading(true);
-        try {
-            const response = await axios.post("http://localhost:8081/registrations", employee);
-            setEmployees([...employees, response.data]);
-            clearForm();
-            setShowForm(false);
-        } catch (error) {
-            console.error("Error adding employee:", error);
-        } finally {
-            setLoading(false);
+    const validateInputs = () => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const phoneRegex = /^[0-9]+$/;
+
+        if (!name || !emailAddress || !phoneNumber || !position || !ID) {
+            return "All fields are required.";
         }
+        if (!emailRegex.test(emailAddress)) {
+            return "Invalid email format.";
+        }
+        if (!phoneRegex.test(phoneNumber) || phoneNumber.length < 10) {
+            return "Phone number must contain only digits and be at least 10 characters.";
+        }
+        return ""; 
     };
 
-    const handleDeleteEmployee = async (employeeId) => {
+    const handleAddEmployee = async () => {
+        const validationError = validateInputs();
+        if (validationError) {
+            setErrorMessage(validationError);
+            return; 
+        }
+        const employee = { name, emailAddress, phoneNumber, position, ID, image };
+
         setLoading(true);
         try {
-            await axios.delete(`http://localhost:8081/registrations/${employeeId}`);
-            setEmployees(employees.filter((employee) => employee.id !== employeeId));
+            if (editingEmployee) {
+                const response = await axios.put(`http://localhost:8081/registrations/${editingEmployee.id}`, employee);
+                setEmployees(employees.map(emp => (emp.id === editingEmployee.id ? response.data : emp)));
+            } else {
+                const response = await axios.post("http://localhost:8081/registrations", employee);
+                setEmployees([...employees, response.data]);
+            }
+            clearForm();
+            setShowForm(false);
+            setErrorMessage(""); 
         } catch (error) {
-            console.error("Error deleting employee:", error);
+            console.error("Error saving employee:", error);
         } finally {
             setLoading(false);
         }
@@ -65,6 +82,30 @@ function App() {
         setID("");
         setImage("");
         setEditingEmployee(null);
+        setErrorMessage(""); 
+    };
+
+    const handleEditEmployee = (employee) => {
+        setEditingEmployee(employee);
+        setName(employee.name);
+        setEmailAddress(employee.emailAddress);
+        setPhoneNumber(employee.phoneNumber);
+        setPosition(employee.position);
+        setID(employee.ID);
+        setImage(employee.image);
+        setShowForm(true);
+    };
+
+    const handleDeleteEmployee = async (id) => {
+        setLoading(true);
+        try {
+            await axios.delete(`http://localhost:8081/registrations/${id}`);
+            setEmployees(employees.filter(employee => employee.id !== id));
+        } catch (error) {
+            console.error("Error deleting employee:", error);
+        } finally {
+            setLoading(false);
+        }
     };
 
     const filteredEmployees = employees.filter((employee) =>
@@ -115,7 +156,7 @@ function App() {
                                     <h3 className="text-card-foreground text-lg font-semibold mb-2">{employee.name}</h3>
                                     <p className="text-muted-foreground text-sm">{employee.position}</p>
                                     <div className="flex space-x-2">
-                                        <button onClick={() => setEditingEmployee(employee)} className="border border-black w-20">
+                                        <button onClick={() => handleEditEmployee(employee)} className="border border-black w-20">
                                             Edit
                                         </button>
                                         <button onClick={() => handleDeleteEmployee(employee.id)}>
@@ -132,7 +173,7 @@ function App() {
             {showForm && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
                     <div className="bg-primary p-4 rounded-lg w-1/3">
-                        <h2 className="text-primary-foreground text-lg font-semibold mb-4">Add Employee</h2>
+                        <h2 className="text-primary-foreground text-lg font-semibold mb-4">{editingEmployee ? "Edit Employee" : "Add Employee"}</h2>
                         <form onSubmit={(e) => e.preventDefault()}>
                             <input
                                 type="text"
@@ -174,12 +215,13 @@ function App() {
                                 onChange={(e) => setImage(URL.createObjectURL(e.target.files[0]))}
                                 className="bg-input text-primary-foreground w-full p-2 rounded-md mb-4"
                             />
+                            {errorMessage && <div className="text-red-500 mb-4">{errorMessage}</div>} 
                             <button
                                 type="button"
                                 onClick={handleAddEmployee}
                                 className="bg-secondary text-secondary-foreground hover:bg-secondary/80 px-4 py-2 rounded-md mr-2"
                             >
-                                Add Employee
+                                {editingEmployee ? "Update Employee" : "Add Employee"}
                             </button>
                             <button
                                 type="button"

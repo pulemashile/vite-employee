@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const { initializeApp } = require('firebase/app');
 const {
     getFirestore,
@@ -12,14 +13,15 @@ const {
 } = require('firebase/firestore');
 const cors = require('cors');
 
+// Initialize Firebase with your config
 const firebaseConfig = {
-  apiKey: "AIzaSyAeRtl8P9PH9vcR21n5lGrvU7uYh19koqs",
-  authDomain: "employee-fd325.firebaseapp.com",
-  projectId: "employee-fd325",
-  storageBucket: "employee-fd325.appspot.com",
-  messagingSenderId: "31628521167",
-  appId: "1:31628521167:web:db3fc423346ef6c68221f3",
-  measurementId: "G-H3JYK9LGJ9"
+    apiKey: "AIzaSyAeRtl8P9PH9vcR21n5lGrvU7uYh19koqs",
+    authDomain: "employee-fd325.firebaseapp.com",
+    projectId: "employee-fd325",
+    storageBucket: "employee-fd325.appspot.com",
+    messagingSenderId: "31628521167",
+    appId: "1:31628521167:web:db3fc423346ef6c68221f3",
+    measurementId: "G-H3JYK9LGJ9"
 };
 initializeApp(firebaseConfig);
 const db = getFirestore();
@@ -28,6 +30,9 @@ const registrationsCollection = collection(db, 'registrations');
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 // Add an employee
 app.post('/registrations', async (req, res) => {
@@ -92,12 +97,13 @@ app.delete('/registrations/:id', async (req, res) => {
     }
 });
 
-const PORT = 8081;
+// Serve the React app for all other routes
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
+
+// Start the server
+const PORT = process.env.PORT || 8081;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
-
-
-
-
-
