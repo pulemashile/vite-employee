@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { RiSave2Fill, RiSearchEyeLine, RiDeleteBin2Line, RiEdit2Line } from "@remixicon/react";
 
 function App() {
     const [name, setName] = useState("");
@@ -12,6 +11,7 @@ function App() {
     const [inputText, setInputText] = useState("");
     const [employees, setEmployees] = useState([]);
     const [editingEmployee, setEditingEmployee] = useState(null);
+    const [loading, setLoading] = useState(false);
     const [showForm, setShowForm] = useState(false);
 
     useEffect(() => {
@@ -19,16 +19,20 @@ function App() {
     }, []);
 
     const getEmployees = async () => {
+        setLoading(true);
         try {
             const response = await axios.get("http://localhost:8081/registrations");
             setEmployees(response.data);
         } catch (error) {
             console.error("Error fetching employees:", error);
+        } finally {
+            setLoading(false);
         }
     };
 
     const handleAddEmployee = async () => {
         const employee = { name, emailAddress, phoneNumber, position, ID, image };
+        setLoading(true);
         try {
             const response = await axios.post("http://localhost:8081/registrations", employee);
             setEmployees([...employees, response.data]);
@@ -36,15 +40,20 @@ function App() {
             setShowForm(false);
         } catch (error) {
             console.error("Error adding employee:", error);
+        } finally {
+            setLoading(false);
         }
     };
 
     const handleDeleteEmployee = async (employeeId) => {
+        setLoading(true);
         try {
             await axios.delete(`http://localhost:8081/registrations/${employeeId}`);
             setEmployees(employees.filter((employee) => employee.id !== employeeId));
         } catch (error) {
             console.error("Error deleting employee:", error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -55,6 +64,7 @@ function App() {
         setPosition("");
         setID("");
         setImage("");
+        setEditingEmployee(null);
     };
 
     const filteredEmployees = employees.filter((employee) =>
@@ -62,7 +72,7 @@ function App() {
     );
 
     return (
-        <div className="flex flex-col h-screen bg-background ">
+        <div className="flex flex-col h-screen bg-background">
             <nav className="bg-primary p-4">
                 <h1 className="text-primary-foreground text-lg font-semibold">mlab</h1>
             </nav>
@@ -91,27 +101,31 @@ function App() {
                 </div>
 
                 <div className="p-4 w-4/5 overflow-y-auto">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {filteredEmployees.map((employee) => (
-                            <div key={employee.id} className="bg-card p-4 rounded-lg shadow-md bg-[#EBD3F8]">
-                                <img
-                                    src={employee.image || "https://placehold.co/150?text=👤"}
-                                    alt="employee"
-                                    className="w-full h-32 object-cover rounded-lg mb-4"
-                                />
-                                <h3 className="text-card-foreground text-lg font-semibold mb-2">{employee.name}</h3>
-                                <p className="text-muted-foreground text-sm">{employee.position}</p>
-                                <div className="flex space-x-2">
-                                    <button onClick={() => setEditingEmployee(employee)} className="border border-black  w-20 ">
-                                        Edit
-                                    </button>
-                                    <button onClick={() => handleDeleteEmployee(employee.id)}>
-                                        Delete
-                                    </button>
+                    {loading ? (
+                        <div className="text-center">Loading...</div>
+                    ) : (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            {filteredEmployees.map((employee) => (
+                                <div key={employee.id} className="bg-card p-4 rounded-lg shadow-md bg-[#EBD3F8] shadow-2xl">
+                                    <img
+                                        src={employee.image || "https://placehold.co/150?text=👤"}
+                                        alt="employee"
+                                        className="w-full h-32 object-cover rounded-lg mb-4"
+                                    />
+                                    <h3 className="text-card-foreground text-lg font-semibold mb-2">{employee.name}</h3>
+                                    <p className="text-muted-foreground text-sm">{employee.position}</p>
+                                    <div className="flex space-x-2">
+                                        <button onClick={() => setEditingEmployee(employee)} className="border border-black w-20">
+                                            Edit
+                                        </button>
+                                        <button onClick={() => handleDeleteEmployee(employee.id)}>
+                                            Delete
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
-                    </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
             </div>
 
